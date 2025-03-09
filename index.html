@@ -1,157 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neon Password Generator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator by FanAyush</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ADD8E6, #00008B); /* Light blue to dark blue gradient */
+            color: #333; /* Darker text for better contrast */
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8); /* Transparent white */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00008B; /* Dark blue title */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .password-display {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            user-select: all;
+            overflow-wrap: break-word;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .options label {
+            margin-bottom: 5px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .options input[type="number"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #333;
+            width: 90%;
+            margin-bottom: 10px;
+        }
+
+        .options input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .generate-btn, .discord-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4682B4, #00008B); /* Blue gradient buttons */
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .generate-btn:hover, .discord-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .discord-btn {
+            background: linear-gradient(135deg, #4169E1, #00008B);
+            margin-top: 10px;
+        }
+
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="neon-text">Password Generator</h1>
-    <div class="password-display">
-      <input type="text" id="password" readonly>
-      <button id="copy-btn" class="neon-button">Copy</button>
+    <div class="container">
+        <h1>Random Password Generator by FanAyush</h1>
+        <div class="password-display" id="passwordDisplay"></div>
+        <div class="options">
+            <label for="length">Password Length:</label>
+            <input type="number" id="length" value="12" min="8" max="32">
+            <label><input type="checkbox" id="uppercase"> Include Uppercase</label>
+            <label><input type="checkbox" id="numbers"> Include Numbers</label>
+            <label><input type="checkbox" id="symbols"> Include Symbols</label>
+        </div>
+        <button class="generate-btn" onclick="generatePassword()">Generate Password</button>
+        <button class="discord-btn" onclick="joinDiscord()">Join Discord</button>
     </div>
-    <div class="settings">
-      <label for="length">Password Length:</label>
-      <input type="number" id="length" min="6" max="50" value="12">
-      <label>
-        <input type="checkbox" id="uppercase"> Include Uppercase
-      </label>
-      <label>
-        <input type="checkbox" id="numbers"> Include Numbers
-      </label>
-      <label>
-        <input type="checkbox" id="symbols"> Include Symbols
-      </label>
-    </div>
-    <button id="generate-btn" class="neon-button">Generate Password</button>
-  </div>
-  <script src="script.js"></script>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const uppercase = document.getElementById('uppercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+
+            const charset = "abcdefghijklmnopqrstuvwxyz";
+            let result = "";
+            let validChars = charset;
+
+            if (uppercase) validChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (numbers) validChars += "0123456789";
+            if (symbols) validChars += "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
+
+            for (let i = 0; i < length; i++) {
+                result += validChars.charAt(Math.floor(Math.random() * validChars.length));
+            }
+
+            document.getElementById('passwordDisplay').textContent = result;
+        }
+
+        function joinDiscord() {
+            window.open('https://discord.gg/YTyM7AKYdx', '_blank');
+        }
+    </script>
 </body>
 </html>
 <style>body {
-  background-color: #0a0a0a;
-  color: #fff;
-  font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ADD8E6, #00008B);
+    color: #333;
+    text-align: center;
 }
 
 .container {
-  text-align: center;
-  background: #1a1a1a;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 400px;
 }
 
-h1.neon-text {
-  font-size: 2.5rem;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #00008B;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .password-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1.5rem 0;
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    user-select: all;
+    overflow-wrap: break-word;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
 }
 
-#password {
-  width: 300px;
-  padding: 10px;
-  font-size: 1.2rem;
-  border: 2px solid #00ffff;
-  border-radius: 5px;
-  background: #1a1a1a;
-  color: #00ffff;
-  text-align: center;
-  margin-right: 10px;
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.neon-button {
-  background: #00ffff;
-  color: #0a0a0a;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s, box-shadow 0.3s;
+.options label {
+    margin-bottom: 5px;
+    width: 100%;
+    text-align: left;
 }
 
-.neon-button:hover {
-  background: #00e6e6;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+.options input[type="number"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #333;
+    width: 90%;
+    margin-bottom: 10px;
 }
 
-.settings {
-  margin: 1.5rem 0;
+.options input[type="checkbox"] {
+    margin-right: 10px;
 }
 
-.settings label {
-  display: block;
-  margin: 10px 0;
-  font-size: 1.1rem;
+.generate-btn, .discord-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4682B4, #00008B);
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.settings input[type="number"] {
-  width: 60px;
-  padding: 5px;
-  font-size: 1rem;
-  border: 2px solid #00ffff;
-  border-radius: 5px;
-  background: #1a1a1a;
-  color: #00ffff;
-  text-align: center;
+.generate-btn:hover, .discord-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.settings input[type="checkbox"] {
-  margin-right: 10px;
+.discord-btn {
+    background: linear-gradient(135deg, #4169E1, #00008B);
+    margin-top: 10px;
   }</style>
-<script>const passwordField = document.getElementById('password');
-const generateBtn = document.getElementById('generate-btn');
-const copyBtn = document.getElementById('copy-btn');
-const lengthInput = document.getElementById('length');
-const uppercaseCheckbox = document.getElementById('uppercase');
-const numbersCheckbox = document.getElementById('numbers');
-const symbolsCheckbox = document.getElementById('symbols');
+<script>function generatePassword() {
+    const length = document.getElementById('length').value;
+    const uppercase = document.getElementById('uppercase').checked;
+    const numbers = document.getElementById('numbers').checked;
+    const symbols = document.getElementById('symbols').checked;
 
-const characters = {
-  lowercase: 'abcdefghijklmnopqrstuvwxyz',
-  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  numbers: '0123456789',
-  symbols: '!@#$%^&*()_+[]{}|;:,.<>?'
-};
+    const charset = "abcdefghijklmnopqrstuvwxyz";
+    let result = "";
+    let validChars = charset;
 
-generateBtn.addEventListener('click', () => {
-  const length = lengthInput.value;
-  const includeUppercase = uppercaseCheckbox.checked;
-  const includeNumbers = numbersCheckbox.checked;
-  const includeSymbols = symbolsCheckbox.checked;
+    if (uppercase) validChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    if (numbers) validChars += "0123456789";
+    if (symbols) validChars += "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
 
-  let charset = characters.lowercase;
-  if (includeUppercase) charset += characters.uppercase;
-  if (includeNumbers) charset += characters.numbers;
-  if (includeSymbols) charset += characters.symbols;
+    for (let i = 0; i < length; i++) {
+        result += validChars.charAt(Math.floor(Math.random() * validChars.length));
+    }
 
-  let password = '';
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * charset.length);
-    password += charset[randomIndex];
-  }
+    document.getElementById('passwordDisplay').textContent = result;
+}
 
-  passwordField.value = password;
-});
-
-copyBtn.addEventListener('click', () => {
-  passwordField.select();
-  navigator.clipboard.writeText(passwordField.value)
-    .then(() => alert('Password copied to clipboard!'))
-    .catch(() => alert('Failed to copy password.'));
-});</script>
+function joinDiscord() {
+    window.open('https://discord.gg/YTyM7AKYdx', '_blank');
+}</script>

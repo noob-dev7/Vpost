@@ -1,1 +1,157 @@
-hii
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Password Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="neon-text">Password Generator</h1>
+    <div class="password-display">
+      <input type="text" id="password" readonly>
+      <button id="copy-btn" class="neon-button">Copy</button>
+    </div>
+    <div class="settings">
+      <label for="length">Password Length:</label>
+      <input type="number" id="length" min="6" max="50" value="12">
+      <label>
+        <input type="checkbox" id="uppercase"> Include Uppercase
+      </label>
+      <label>
+        <input type="checkbox" id="numbers"> Include Numbers
+      </label>
+      <label>
+        <input type="checkbox" id="symbols"> Include Symbols
+      </label>
+    </div>
+    <button id="generate-btn" class="neon-button">Generate Password</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+<style>body {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+h1.neon-text {
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+}
+
+.password-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+#password {
+  width: 300px;
+  padding: 10px;
+  font-size: 1.2rem;
+  border: 2px solid #00ffff;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: #00ffff;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.neon-button {
+  background: #00ffff;
+  color: #0a0a0a;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.neon-button:hover {
+  background: #00e6e6;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+.settings {
+  margin: 1.5rem 0;
+}
+
+.settings label {
+  display: block;
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.settings input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  font-size: 1rem;
+  border: 2px solid #00ffff;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: #00ffff;
+  text-align: center;
+}
+
+.settings input[type="checkbox"] {
+  margin-right: 10px;
+  }</style>
+<script>const passwordField = document.getElementById('password');
+const generateBtn = document.getElementById('generate-btn');
+const copyBtn = document.getElementById('copy-btn');
+const lengthInput = document.getElementById('length');
+const uppercaseCheckbox = document.getElementById('uppercase');
+const numbersCheckbox = document.getElementById('numbers');
+const symbolsCheckbox = document.getElementById('symbols');
+
+const characters = {
+  lowercase: 'abcdefghijklmnopqrstuvwxyz',
+  uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  numbers: '0123456789',
+  symbols: '!@#$%^&*()_+[]{}|;:,.<>?'
+};
+
+generateBtn.addEventListener('click', () => {
+  const length = lengthInput.value;
+  const includeUppercase = uppercaseCheckbox.checked;
+  const includeNumbers = numbersCheckbox.checked;
+  const includeSymbols = symbolsCheckbox.checked;
+
+  let charset = characters.lowercase;
+  if (includeUppercase) charset += characters.uppercase;
+  if (includeNumbers) charset += characters.numbers;
+  if (includeSymbols) charset += characters.symbols;
+
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+
+  passwordField.value = password;
+});
+
+copyBtn.addEventListener('click', () => {
+  passwordField.select();
+  navigator.clipboard.writeText(passwordField.value)
+    .then(() => alert('Password copied to clipboard!'))
+    .catch(() => alert('Failed to copy password.'));
+});</script>

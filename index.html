@@ -3,255 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Password Generator by FanAyush</title>
+    <title>Live Stream Coming Soon</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: sans-serif;
             margin: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #ADD8E6, #00008B); /* Light blue to dark blue gradient */
-            color: #333; /* Darker text for better contrast */
             text-align: center;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.8); /* Transparent white */
+            background-color: #fff;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #00008B; /* Dark blue title */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .password-display {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-            user-select: all;
-            overflow-wrap: break-word;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: #333;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin-bottom: 20px;
         }
 
-        .options label {
-            margin-bottom: 5px;
-            width: 100%;
-            text-align: left;
-        }
-
-        .options input[type="number"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background: #fff;
-            color: #333;
-            width: 90%;
+        p {
+            color: #666;
             margin-bottom: 10px;
         }
 
-        .options input[type="checkbox"] {
-            margin-right: 10px;
+        .countdown {
+            font-size: 2em;
+            color: #007bff;
+            margin-top: 20px;
         }
 
-        .generate-btn, .discord-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #4682B4, #00008B); /* Blue gradient buttons */
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        #timer {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        .generate-btn:hover, .discord-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        .time-segment {
+            background-color: #e9ecef;
+            padding: 15px 20px;
+            border-radius: 5px;
         }
 
-        .discord-btn {
-            background: linear-gradient(135deg, #4169E1, #00008B);
-            margin-top: 10px;
+        .time-segment span {
+            display: block;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #212529;
         }
 
+        .label {
+            font-size: 0.8em;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Random Password Generator by FanAyush</h1>
-        <div class="password-display" id="passwordDisplay"></div>
-        <div class="options">
-            <label for="length">Password Length:</label>
-            <input type="number" id="length" value="12" min="8" max="32">
-            <label><input type="checkbox" id="uppercase"> Include Uppercase</label>
-            <label><input type="checkbox" id="numbers"> Include Numbers</label>
-            <label><input type="checkbox" id="symbols"> Include Symbols</label>
+        <h1>Live Stream Coming Soon!</h1>
+        <p>Get ready for an exciting live stream starting at:</p>
+        <p style="font-size: 1.2em; font-weight: bold;">Daily,  at 4:00 PM IST</p>
+        <p>Stay tuned for more updates!</p>
+
+        <div class="countdown">
+            <h2>Time Remaining:</h2>
+            <div id="timer">
+                <div class="time-segment">
+                    <span id="hours">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="time-segment">
+                    <span id="minutes">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="time-segment">
+                    <span id="seconds">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
         </div>
-        <button class="generate-btn" onclick="generatePassword()">Generate Password</button>
-        <button class="discord-btn" onclick="joinDiscord()">Join Discord</button>
     </div>
 
     <script>
-        function generatePassword() {
-            const length = document.getElementById('length').value;
-            const uppercase = document.getElementById('uppercase').checked;
-            const numbers = document.getElementById('numbers').checked;
-            const symbols = document.getElementById('symbols').checked;
+        function updateCountdown() {
+            const targetTime = new Date("2025-04-10T16:00:00+05:30").getTime(); // Set the target time (IST)
+            const now = new Date().getTime();
+            const difference = targetTime - now;
 
-            const charset = "abcdefghijklmnopqrstuvwxyz";
-            let result = "";
-            let validChars = charset;
-
-            if (uppercase) validChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            if (numbers) validChars += "0123456789";
-            if (symbols) validChars += "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
-
-            for (let i = 0; i < length; i++) {
-                result += validChars.charAt(Math.floor(Math.random() * validChars.length));
+            if (difference <= 0) {
+                document.getElementById("timer").innerHTML = "<p style='color: green; font-weight: bold;'>Live Stream Started!</p>";
+                clearInterval(intervalId); // Stop the countdown
+                return;
             }
 
-            document.getElementById('passwordDisplay').textContent = result;
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
         }
 
-        function joinDiscord() {
-            window.open('https://discord.gg/YTyM7AKYdx', '_blank');
-        }
+        // Update the countdown every second
+        const intervalId = setInterval(updateCountdown, 1000);
+
+        // Initial call to set the time immediately
+        updateCountdown();
     </script>
 </body>
 </html>
-<style>body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ADD8E6, #00008B);
-    color: #333;
-    text-align: center;
-}
-
-.container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    width: 400px;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #00008B;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.password-display {
-    background: #f0f0f0;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 1.2em;
-    user-select: all;
-    overflow-wrap: break-word;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.options label {
-    margin-bottom: 5px;
-    width: 100%;
-    text-align: left;
-}
-
-.options input[type="number"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: #fff;
-    color: #333;
-    width: 90%;
-    margin-bottom: 10px;
-}
-
-.options input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-.generate-btn, .discord-btn {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #4682B4, #00008B);
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.generate-btn:hover, .discord-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.discord-btn {
-    background: linear-gradient(135deg, #4169E1, #00008B);
-    margin-top: 10px;
-  }</style>
-<script>function generatePassword() {
-    const length = document.getElementById('length').value;
-    const uppercase = document.getElementById('uppercase').checked;
-    const numbers = document.getElementById('numbers').checked;
-    const symbols = document.getElementById('symbols').checked;
-
-    const charset = "abcdefghijklmnopqrstuvwxyz";
-    let result = "";
-    let validChars = charset;
-
-    if (uppercase) validChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    if (numbers) validChars += "0123456789";
-    if (symbols) validChars += "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
-
-    for (let i = 0; i < length; i++) {
-        result += validChars.charAt(Math.floor(Math.random() * validChars.length));
-    }
-
-    document.getElementById('passwordDisplay').textContent = result;
-}
-
-function joinDiscord() {
-    window.open('https://discord.gg/YTyM7AKYdx', '_blank');
-}</script>
